@@ -1,0 +1,124 @@
+/* Minimal touch-friendly Waybar
+ *
+ * Goals:
+ *  - ~48px hit targets
+ *  - clear separation between modules
+ *  - no hover-only affordances (drawers use click-to-reveal in config)
+ */
+
+@define-color bg      rgba(18, 18, 20, 0.92);
+@define-color fg      #e8e6e3;
+@define-color muted   #8a8680;
+@define-color accent  #c4b5a0;
+@define-color urgent  #c45c5c;
+@define-color warn    #c9a227;
+
+* {
+  border: none;
+  border-radius: 0;
+  font-family: "JetBrains Mono", "IBM Plex Mono", "DejaVu Sans Mono", monospace;
+  font-size: 14px;
+  min-height: 0;
+  color: @fg;
+}
+
+window#waybar {
+  background: @bg;
+  color: @fg;
+}
+
+/* Shared module padding → larger tap area without cluttering the bar. */
+#workspaces button,
+#clock,
+#pulseaudio,
+#network,
+#battery,
+#tray,
+#window,
+.modules-left > widget > *,
+.modules-center > widget > *,
+.modules-right > widget > * {
+  padding: 0 16px;
+  margin: 0 2px;
+  background: transparent;
+  color: @fg;
+}
+
+/* Workspaces: each button is a discrete target. */
+#workspaces {
+  background: transparent;
+}
+
+#workspaces button {
+  min-width: 44px;
+  padding: 0 14px;
+  color: @muted;
+}
+
+#workspaces button:hover,
+#workspaces button.visible {
+  color: @fg;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+#workspaces button.active {
+  color: @accent;
+  background: rgba(196, 181, 160, 0.12);
+  box-shadow: inset 0 -2px 0 @accent;
+}
+
+#workspaces button.urgent {
+  color: @urgent;
+}
+
+#clock {
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  min-width: 96px;
+}
+
+#pulseaudio,
+#network,
+#battery {
+  color: @fg;
+  min-width: 56px;
+}
+
+#battery.warning {
+  color: @warn;
+}
+
+#battery.critical {
+  color: @urgent;
+}
+
+#battery.charging,
+#battery.plugged {
+  color: @accent;
+}
+
+#network.disconnected {
+  color: @muted;
+}
+
+#tray {
+  padding: 0 12px;
+}
+
+#tray > .passive {
+  -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+  -gtk-icon-effect: highlight;
+}
+
+/* Drawer children stay quiet until revealed by tap. */
+.status-drawer {
+  background: transparent;
+}
+
+#window {
+  color: @muted;
+  font-weight: 400;
+}
