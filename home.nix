@@ -9,6 +9,10 @@
 	programs.git.enable = true;
 	home.stateVersion = "26.05";
 
+	xdg.configFile."hypr/hyprland.lua".source = ./hypr/hyprland.lua;
+	xdg.configFile."hypr/modules".source = ./hypr/modules;
+		
+
 	#PACKAGES
 	home.packages = with pkgs;[
 	    vscodium
@@ -86,7 +90,6 @@
 		history.ignoreAllDups = true;
 		history.path = "$HOME/.zsh_history";
 		history.ignorePatterns = ["rm *" "pkill *" "cp *"];
-		
 
 	};
 
